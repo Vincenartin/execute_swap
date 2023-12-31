@@ -1,0 +1,44 @@
+import requests
+import time
+
+# Функция для выполнения свапа криптовалюты
+def execute_swap(coin_from, coin_to, amount, swap_time, swap_delay):
+    # Ваш код для отправки запроса на свап криптовалюты с заданными параметрами
+    # Например, использование соответствующего API для свапа
+
+    print(f"Выполняется свап {amount} {coin_from} в {coin_to}. Время свапа: {swap_time}, Задержка: {swap_delay} сек")
+    time.sleep(swap_delay)
+    print("Свап завершен!")
+
+# Установка параметров свапа
+coin_from = 'ETH'  # Криптовалюта для свапа
+coin_to = 'BTC'  # Криптовалюта, на которую будет произведен свап
+amount = 1.5  # Количество монет для свапа
+swap_time = '2023-12-31 23:59:59'  # Время, когда должен быть выполнен свап
+swap_delay = 10  # Задержка перед выполнением свапа в секундах
+
+# Выполнение свапа с установленными параметрами
+execute_swap(coin_from, coin_to, amount, swap_time, swap_delay)
+from web3 import Web3
+
+# Приватный ключ кошелька Ethereum
+private_key = 'YOUR_PRIVATE_KEY'
+
+# Узел Ethereum, к которому вы подключаетесь (например, Infura)
+w3 = Web3(Web3.HTTPProvider('https://mainnet.infura.io/v3/YOUR_INFURA_API_KEY'))
+
+# Проверка подключения к сети Ethereum
+if w3.isConnected():
+    print("Успешное подключение к сети Ethereum")
+else:
+    print("Ошибка подключения к сети Ethereum")
+
+# Получение адреса кошелька из приватного ключа
+account = w3.eth.account.from_key(private_key)
+wallet_address = account.address
+print(f"Адрес кошелька: {wallet_address}")
+
+# Получение баланса кошелька
+balance_wei = w3.eth.get_balance(wallet_address)
+balance_eth = w3.fromWei(balance_wei, 'ether')
+print(f"Баланс кошелька: {balance_eth} ETH")
